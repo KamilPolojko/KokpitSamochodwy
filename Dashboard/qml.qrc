@@ -1,0 +1,48 @@
+<RCC>
+    <qresource prefix="/">
+        <file>dashboard.qml</file>
+        <file>assets/Dashboard.svg</file>
+        <file>assets/Vector 70.svg</file>
+        <file>assets/Low beam headlights.svg</file>
+        <file>assets/Vector 1.svg</file>
+        <file>assets/Vector 2.svg</file>
+        <file>assets/FirstRightIcon.svg</file>
+        <file>assets/FourthRightIcon.svg</file>
+        <file>assets/Lights.svg</file>
+        <file>assets/Parking lights.svg</file>
+        <file>assets/Rare fog lights.svg</file>
+        <file>assets/SecondRightIcon.svg</file>
+        <file>assets/thirdRightIcon.svg</file>
+        <file>assets/car.png</file>
+        <file>assets/fuel.svg</file>
+        <file>assets/Group 28.svg</file>
+        <file>assets/speedometer.svg</file>
+        <file>assets/coffee.svg</file>
+        <file>input.txt</file>
+        <file>second_panel.qml</file>
+        <file>assets/TEST_IMAGE.jpg</file>
+        <file>main.qml</file>
+        <file>assets/telemetry.json</file>
+        <file>assets/ipz_grafiki/Awaria siwec zarowych.svg</file>
+        <file>assets/ipz_grafiki/awaria w ukladznie elektroczniynm sterowania silnika.svg</file>
+        <file>assets/ipz_grafiki/awaria_abs_lub_wylczenie_ukladu abs.svg</file>
+        <file>assets/ipz_grafiki/awaria_ukladu_hamulcowego.svg</file>
+        <file>assets/ipz_grafiki/brak_lub_niewlasciwy_poziom_akumulatora.svg</file>
+        <file>assets/ipz_grafiki/Koniecznawymianaklockowhamulcowych'.svg</file>
+        <file>assets/ipz_grafiki/Malailoscplynudospryskiwaczy.svg</file>
+        <file>assets/ipz_grafiki/niezapietepasybezpieczenstwa.svg</file>
+        <file>assets/ipz_grafiki/Niskipoziomolejusilnikowego.svg</file>
+        <file>assets/ipz_grafiki/otwartedwrzilubklapabagaznika.svg</file>
+        <file>assets/ipz_grafiki/rezerwapaliwa.svg</file>
+        <file>assets/ipz_grafiki/swiatlaprzeciwmgielnetylnier.svg</file>
+        <file>assets/ipz_grafiki/System wspomagania parkowania.svg</file>
+        <file>assets/ipz_grafiki/Wlacozne ogrzewanie tylnej szyby.svg</file>
+        <file>assets/ipz_grafiki/Wlaczone_swiatla+drogowe.svg</file>
+        <file>assets/ipz_grafiki/Wlaczonekierunkowskazy.svg</file>
+        <file>assets/ipz_grafiki/Wlaczoneswiadlamijania.svg</file>
+        <file>assets/ipz_grafiki/Wlaczony_elektryczny_hamulec_postojowy.svg</file>
+        <file>assets/ipz_grafiki/wlaczony_tempomat.svg</file>
+        <file>assets/ipz_grafiki/zbyt_niskie_cisnienie_oleju_silnikowego.svg</file>
+        <file>assets/ipz_grafiki/zbyt_niskie_cisnienie_w_oponach.svg</file>
+    </qresource>
+</RCC>

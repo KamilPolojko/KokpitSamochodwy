@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.5
-import CustomControls
+import Telemetry 1.0
 
 Window {
     width: 1920
@@ -13,84 +13,42 @@ Window {
     visibility: "Windowed"
 
     property int nextSpeed: 60
-    property real fuelValue: 10
-    property real speedValue: 19
-    property real avgSpeedValue: 12
-    property real batteryChargeValue: 12
-    property real distanceValue: 56
+    property real fuelValue: 0
+    property real speedValue: 0
+    property real avgSpeedValue: 0
+    property real batteryChargeValue: 0
+    property real distanceValue: 0
+    property string timeValue: ""
+    property string datevalue: ""
+    property bool showBlock: false
 
-    function readInputValues(fileName)
-    {
-        var file = new XMLHttpRequest();
-        file.open("GET", fileName, false);
-        file.send();
-        var fileContent = file.responseText.trim();
-        var lines = fileContent.split("\n");
 
-        console.log(lines);
-        if (fileContent.length == 5)
-        {
-            fuelValue = parseFloat(fileContent[0]);
-            speedValue = parseFloat(fileContent[1]);
-            avgSpeedValue = parseFloat(fileContent[2]);
-            batteryChargeValue = parseFloat(fileContent[3]);
-            distanceValue = parseFloat(fileContent[4]);
-
-            if (isNaN(fuelValue) || isNaN(speedValue) || isNaN(avgSpeedValue) || isNaN(batteryChargeValue) || isNaN(distanceValue))
-            {
-                console.error("Błąd parsowania danych z pliku:", fileContent);
-            }
+    Ets2Telemetry{
+        id: telemetry
+        onSpeedUpdated: {
+            avgSpeedValue = speed
+            distanceValue = distance
+            fuelValue = fuel
+            timeValue = time
+            datevalue = date1
         }
-        else
-        {
-            console.error("Nieprawidłowy format pliku:", fileContent);
+        onFatigueStatusChanged:{
+            showBlock = isDriverTired
         }
+
     }
 
-    Component.onCompleted:
-    {
-        readInputValues("input.txt");
+    Component.onCompleted: {
+        telemetry.fetchData()
     }
 
-    function generateRandom(maxLimit = 70){
-        let rand = Math.random() * maxLimit;
-        rand = Math.floor(rand);
-        return rand;
-    }
-
-    function get_speed_value_from_game(){
-        let speed_value = 340 * Math.random();
-        return speed_value;
-    }
-
-    Timer{
-        repeat: true
-        interval: 100
+    Timer {
+        interval: 500 // Fetch data every second
         running: true
-
-        onTriggered: {
-            //current_speed = get_speed_value_from_game()
-        }
-    }
-
-    Timer{
-        id:speedTimer
         repeat: true
-        interval: 100
-        running: true
-        onTriggered: {
-            var currDateTime = new Date()
-            var curr
-            var month
-
-            curr = currDateTime.getHours() + ":" + currDateTime.getMinutes()
-            time.text = curr
-            month = currDateTime.getMonth() + 1
-            curr = currDateTime.getDate() + "." + month + "." + currDateTime.getFullYear()
-            date.text = curr
-            //speedLabel.text = current_speed
-        }
+        onTriggered: telemetry.fetchData()
     }
+
 
     Shortcut {
         sequence: StandardKey.Quit
@@ -374,6 +332,173 @@ Window {
                 color: "#FFFFFF"
             }
         }
+
+
+
+
+
+        Rectangle {
+            id: rectangle
+            width: 300
+            height: 300
+            color: "red"
+            anchors.centerIn: parent
+            visible: showBlock
+
+            SequentialAnimation on color {
+                id: colorAnimation
+                loops: Animation.Infinite
+                ColorAnimation {
+                    to: "black"
+                    duration: 2000 // Początkowo wolno
+                }
+                ColorAnimation {
+                    to: "red"
+                    duration: 2000
+                }
+                ColorAnimation {
+                    to: "black"
+                    duration: 1500 // Trochę szybciej
+                }
+                ColorAnimation {
+                    to: "red"
+                    duration: 1500
+                }
+                ColorAnimation {
+                    to: "black"
+                    duration: 1000 // Jeszcze szybciej
+                }
+                ColorAnimation {
+                    to: "red"
+                    duration: 1000
+                }
+                ColorAnimation {
+                    to: "black"
+                    duration: 500 // Bardzo szybko
+                }
+                ColorAnimation {
+                    to: "red"
+                    duration: 500
+                }
+            }
+
+            SequentialAnimation on width {
+                id: widthAnimation
+                loops: Animation.Infinite
+                PropertyAnimation {
+                    to: 500
+                    duration: 2000 // Początkowo wolno
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 2000
+                }
+                PropertyAnimation {
+                    to: 500
+                    duration: 1500 // Trochę szybciej
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 1500
+                }
+                PropertyAnimation {
+                    to: 500
+                    duration: 1000 // Jeszcze szybciej
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 1000
+                }
+                PropertyAnimation {
+                    to: 500
+                    duration: 500 // Bardzo szybko
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 500
+                }
+            }
+
+            SequentialAnimation on height {
+                id: heightAnimation
+                loops: Animation.Infinite
+                PropertyAnimation {
+                    to: 500
+                    duration: 2000 // Początkowo wolno
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 2000
+                }
+                PropertyAnimation {
+                    to: 500
+                    duration: 1500 // Trochę szybciej
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 1500
+                }
+                PropertyAnimation {
+                    to: 500
+                    duration: 1000 // Jeszcze szybciej
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 1000
+                }
+                PropertyAnimation {
+                    to: 500
+                    duration: 500 // Bardzo szybko
+                }
+                PropertyAnimation {
+                    to: 300
+                    duration: 500
+                }
+            }
+
+            Timer {
+                id: speedUpTimer
+                interval: 2000
+                repeat: true
+                running: true
+                onTriggered: {
+                    if (colorAnimation.animations[0].duration > 500) {
+                        for (var i = 0; i < colorAnimation.animations.length; i++) {
+                            colorAnimation.animations[i].duration -= 500
+                            widthAnimation.animations[i].duration -= 500
+                            heightAnimation.animations[i].duration -= 500
+                        }
+                    } else {
+                        speedUpTimer.stop()
+                    }
+                }
+            }
+
+            Button {
+                text: "Może czas odpocząć? Wyłącz komunikat"
+                anchors.centerIn: parent
+                background: Rectangle {
+                    color: "white"
+                    radius: 10 // Zaokrąglone rogi
+                }
+                contentItem: Text {
+                    text: "Może czas odpocząć? Wyłącz komunikat"
+                    color: "black"
+                    font.pixelSize: 15
+                    font.family: "Arial" // Możesz zmienić na inną czcionkę, jeśli chcesz
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+                onClicked: {
+                    showBlock = false
+                    colorAnimation.stop()
+                    widthAnimation.stop()
+                    heightAnimation.stop()
+                    speedUpTimer.stop()
+                }
+            }
+        }
+
 
          /*
            -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

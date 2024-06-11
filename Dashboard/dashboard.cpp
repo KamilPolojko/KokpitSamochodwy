@@ -4,6 +4,7 @@
 #include <QQmlContext>
 #include <iostream>
 #include "radialbar.h"
+#include "ets2telemetry.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,19 +19,22 @@ int main(int argc, char *argv[])
 
     QList<QScreen*> screens = QGuiApplication::screens();
     //std::cout << "screens.length() = " << screens.length();
-    //QString current_qml = QStringLiteral("qrc:/second_panel.qml");
+    //QString current_qml = QStringLiteral("qrc:/dashboard.qml");
+    qmlRegisterType<ets2telemetry>("Telemetry", 1, 0, "Ets2Telemetry");
 
+    ets2telemetry telemetry;
+    telemetry.fetchData();
 
-    // QQmlApplicationEngine engine2;
-    // const QUrl url_2(QStringLiteral("qrc:/second_panel.qml"));
-    // QObject::connect(&engine2, &QQmlApplicationEngine::objectCreated,
-    //     &app, [url_2](QObject *obj, const QUrl &objUrl) {
-    //         if (!obj && url_2 == objUrl)
-    //             QCoreApplication::exit(-1);
-    //     }, Qt::QueuedConnection);
-    // engine2.load(url_2);
+    QQmlApplicationEngine engine2;
+    const QUrl url_2(QStringLiteral("qrc:/dashboard.qml"));
+    QObject::connect(&engine2, &QQmlApplicationEngine::objectCreated,
+        &app, [url_2](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url_2 == objUrl)
+                QCoreApplication::exit(-1);
+        }, Qt::QueuedConnection);
+    engine2.load(url_2);
 
-
+    /*
 
     QQmlApplicationEngine engine1;
     qmlRegisterType<RadialBar>("CustomControls", 1, 0, "RadialBar");
@@ -49,19 +53,19 @@ int main(int argc, char *argv[])
         engine1.rootObjects().first()->setProperty("width", screens[0]->size().width());
         engine1.rootObjects().first()->setProperty("height", screens[0]->size().height());
     }
-    // if (work_screens_num >= 2) {
+    if (work_screens_num >= 2) {
 
-    //     if (!is_fullscreen) {
-    //         engine2.rootContext()->setContextProperty("screenWidth", screens[1]->size().width());
-    //         engine2.rootContext()->setContextProperty("screenHeight", screens[1]->size().height());
-    //         engine2.rootObjects().first()->setProperty("x", screens[1]->geometry().x());
-    //         engine2.rootObjects().first()->setProperty("y", screens[1]->geometry().y());
-    //         engine2.rootObjects().first()->setProperty("width", screens[1]->size().width());
-    //         engine2.rootObjects().first()->setProperty("height", screens[1]->size().height());
-    //     }
-    // }
+        if (!is_fullscreen) {
+            engine2.rootContext()->setContextProperty("screenWidth", screens[1]->size().width());
+            engine2.rootContext()->setContextProperty("screenHeight", screens[1]->size().height());
+            engine2.rootObjects().first()->setProperty("x", screens[1]->geometry().x());
+            engine2.rootObjects().first()->setProperty("y", screens[1]->geometry().y());
+            engine2.rootObjects().first()->setProperty("width", screens[1]->size().width());
+            engine2.rootObjects().first()->setProperty("height", screens[1]->size().height());
+        }
+    }
 
-
+*/
 
     return app.exec();
 }

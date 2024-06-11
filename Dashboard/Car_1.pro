@@ -6,6 +6,7 @@ QT += quick qml
 
 SOURCES += \
         dashboard.cpp \
+        ets2telemetry.cpp \
         radialbar.cpp
 
 RESOURCES += qml.qrc
@@ -22,6 +23,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+	ets2telemetry.h \
 	radialbar.h
 
 DISTFILES += \
